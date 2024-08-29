@@ -1,4 +1,5 @@
 const { ethers, JsonRpcProvider } = require("ethers");
+const fs = require("fs");
 const contractMetadata = require("../contracts/metadata.json");
 
 // Get free token from the faucet: https://faucet.triangleplatform.com/darwinia/koi
@@ -24,6 +25,8 @@ const deploy = async () => {
     let res = await contract.deploy(initialSupply);
     let address = await res.getAddress();
     console.log(`Contract deployed at address: ${address}`);
+
+    fs.writeFileSync("./scripts/token-address.txt", address);
 };
 
 deploy();

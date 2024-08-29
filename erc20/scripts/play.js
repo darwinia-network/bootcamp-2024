@@ -1,4 +1,5 @@
 const { ethers, JsonRpcProvider } = require("ethers");
+const fs = require("fs");
 const contractMetadata = require("../contracts/metadata.json");
 
 // Get free token from the faucet: https://faucet.triangleplatform.com/darwinia/koi
@@ -11,12 +12,11 @@ const provider = new JsonRpcProvider('https://koi-rpc.darwinia.network');
 const wallet = new ethers.Wallet(tokenOwner.privateKey, provider);
 const abi = contractMetadata.contracts["BootcampERC20.sol:Bootcamp"].abi;
 
-// The contract address deployed in last step
-const contractAddress = '0x6725fF517BE92F461c250F18715537f5C4DeA871';
-// Construct the contract instance
-const contract = new ethers.Contract(contractAddress, abi, wallet);
-
 const testing = async () => {
+    const contractAddress = await fs.readFileSync("./scripts/token-address.txt", "utf8");
+    // Construct the contract instance
+    const contract = new ethers.Contract(contractAddress, abi, wallet);
+
     // Ensure the token metadata is correct.
     console.log("Testing: Query token info:");
     let tokenName = await contract.name();
