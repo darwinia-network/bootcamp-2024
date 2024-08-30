@@ -1,4 +1,4 @@
-const { ethers, JsonRpcProvider } = require("ethers");
+const { ethers } = require("ethers");
 const fs = require("fs");
 const contractMetadata = require("../contracts/metadata.json");
 
@@ -8,7 +8,10 @@ const tokenOwner = {
     privateKey: "0xd5cef12c5641455ad949c3ce8f9056478eeda53dcbade335b06467e8d6b2accc",
 }
 
-const provider = new JsonRpcProvider('https://koi-rpc.darwinia.network');
+const network = new ethers.Network("koi", 701);
+const provider = new ethers.JsonRpcProvider('https://koi-rpc.darwinia.network', network, {
+    staticNetwork: network
+});
 const wallet = new ethers.Wallet(tokenOwner.privateKey, provider);
 // Compile and output the contract metadata by running the following command:
 // solc contracts/BootcampERC20.sol --include-path node_modules/ --base-path / --combined-json abi,bin,hashes --pretty-json > contracts/metadata.json
