@@ -15,8 +15,8 @@ const provider = new ethers.JsonRpcProvider('https://koi-rpc.darwinia.network', 
 const wallet = new ethers.Wallet(tokenOwner.privateKey, provider);
 // Compile and output the contract metadata by running the following command:
 // solc contracts/BootcampERC20.sol --include-path node_modules/ --base-path / --combined-json abi,bin,hashes --pretty-json > contracts/metadata.json
-const abi = contractMetadata.contracts["BootcampERC20.sol:Bootcamp"].abi;
-const bin = contractMetadata.contracts["BootcampERC20.sol:Bootcamp"].bin;
+const abi = contractMetadata.contracts["BootcampERC721.sol:Bootcamp"].abi;
+const bin = contractMetadata.contracts["BootcampERC721.sol:Bootcamp"].bin;
 
 const deploy = async () => {
     console.log(`Attempting to deploy contract from account ${tokenOwner.address}`);
@@ -24,8 +24,7 @@ const deploy = async () => {
     // Construct the contract instance
     const contract = new ethers.ContractFactory(abi, bin, wallet);
     
-    let initialSupply = ethers.parseUnits("1000"); // Represents 1000 * 10^18
-    let res = await contract.deploy(initialSupply);
+    let res = await contract.deploy();
     let address = await res.getAddress();
     console.log(`Contract deployed at address: ${address}`);
 
