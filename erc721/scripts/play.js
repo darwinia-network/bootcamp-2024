@@ -29,13 +29,13 @@ const testing = async () => {
 	// Construct the contract instance
 	const contract = new ethers.Contract(contractAddress, abi, wallet);
 
-	const text = "TESTA";
+	const text = "TESTC";
 
 	// Mint the token
 	let nextTokenId = await contract.nextTokenId();
 	console.log(`Mint new token: id ${nextTokenId}`);
 	let token = await generateTokenUrl(text, nextTokenId);
-	console.log(`   > The token metadata has been uploaded to IPFS, the url: ${token}`);
+	console.log(`   > The token ${nextTokenId}'s metadata has been uploaded to IPFS, the url: ${token}`);
 	let mint = await contract.mint(tokenOwner.address, token);
 	await mint.wait();
 	console.log(`   > Token Name: ${await contract.name()}`);
@@ -68,7 +68,7 @@ const testing = async () => {
 	console.log(`Approve the token to account: ${toAccountAddr}`);
 	nextTokenId = await contract.nextTokenId();
 	token = await generateTokenUrl(text, nextTokenId);
-    console.log(`   > The token metadata has been uploaded to IPFS, the url: ${token}`);
+    console.log(`   > The token ${nextTokenId}'s metadata has been uploaded to IPFS, the url: ${token}`);
 	mint = await contract.mint(tokenOwner.address, token);
 	await mint.wait();
 	console.log(`   > Token owner successfully mint another token ${Number(nextTokenId)}`);
