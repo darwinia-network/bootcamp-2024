@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^5.0.2",
-    "canvas": "^2.11.2",
+    "canvas": "^3.2.1",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
     "pinata": "^1.0.5"
